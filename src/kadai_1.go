@@ -6,7 +6,8 @@ import (
 	"os"
 	"strconv"
 )
-
+// メイン関数
+// 期待するコマンドライン引数：「./kadai_1 28」の様な形式
 func main() {
 
 	var i int
