@@ -29,7 +29,7 @@ func main() {
 
 			main_list := GetHttpLink(os.Args[1])
 			//含まれない場合の処理
-			_, ans = MainLinkLoop(main_list, os.Args[2])
+			ans = MainLinkLoop(main_list, os.Args[2])
 
 		}
 
@@ -44,22 +44,27 @@ func main() {
 	}
 }
 
-func MainLinkLoop(url_list []string, search string) (exist bool, ans string) {
+// 検索メインループ処理
+// URLリストに対して検索を行い、該当なしの場合URLリストからリンクを抽出する
+// url_list:URLリスト
+// search:検索ワード
+// result:結果URL
+func MainLinkLoop(url_list []string, search string) (result string) {
 
-	exist = false
+	result = ""
+
 	//含まれない場合の処理
 	for _, value := range url_list {
 
 		if SearchHttpString(value, search) == true {
-			ans = value
-			exist = true
+			result = value
 			break
 		}
 	}
-	if exist == false {
+	if result == "" {
 		for _, value := range url_list {
 			sub_list := GetHttpLink(value)
-			exist, ans = MainLinkLoop(sub_list, search)
+			result = MainLinkLoop(sub_list, search)
 		}
 	}
 	return
