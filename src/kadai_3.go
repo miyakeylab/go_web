@@ -37,9 +37,15 @@ func main() {
 
 func GetHttpData(url string) {
 	doc, _ := goquery.NewDocument(url)
+	n := 0
 	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
 		url, _ := s.Attr("href")
-		fmt.Println(url)
+		if strings.HasPrefix(url, os.Args[2]) == true {
+			fmt.Println(string(n) + url)
+			n++
+		} else {
+			fmt.Println(string(n))
+		}
 
 	})
 }
