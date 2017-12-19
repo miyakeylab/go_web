@@ -9,7 +9,7 @@ import (
 )
 
 // メイン関数
-// 期待するコマンドライン引数：「./kadai_1 28」の様な形式
+// 期待するコマンドライン引数：「./kadai_1 test.txt」の様な形式
 func main() {
 
 	// 引数チェック
@@ -93,6 +93,7 @@ func MainFactorNumber(x int) (result string, errObj error) {
 		result = ProcFactorNumber(x,2,result)
 	} else {
 		errObj = errors.New("正の自然数ではありません")
+		result = ""
 	}
 	return
 }
@@ -107,20 +108,18 @@ func MainFactorNumber(x int) (result string, errObj error) {
 func ProcFactorNumber(x int,count int,data string) (result string) {
 
 	result = data
-	i := count;
-	tmp := x;
-
-    for (i * i) <= x{
-        if tmp % i == 0{
-            tmp /= i
-            result += strconv.Itoa(i) + ","
-            result = ProcFactorNumber(tmp,i,result)
+	
+    for (count * count) <= x{
+        if x % count == 0{
+            x /= count
+            result += strconv.Itoa(count) + ","
+            result = ProcFactorNumber(x,count,result)
             return;
         }else{
-            i++
+            count++
         }
     }
-    
-	result += strconv.Itoa(tmp)
+    // 最後の素数
+	result += strconv.Itoa(x)
 	return
 }
