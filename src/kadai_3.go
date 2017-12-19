@@ -65,6 +65,9 @@ func MainLinkLoop(url_list []string, search string) (result string) {
 		for _, value := range url_list {
 			sub_list := GetHttpLink(value)
 			result = MainLinkLoop(sub_list, search)
+			if result != "" {
+				break
+			}
 		}
 	}
 	return
